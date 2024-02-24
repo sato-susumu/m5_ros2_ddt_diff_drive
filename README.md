@@ -59,15 +59,15 @@ ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.5, y: 0.0
 
 ### 注意
 - あらかじめ、ダイレクトドライブモーターのIDを設定しておく必要があります。
-  - 左モーターがID1、右モーターがID2です。  
+  - 左モーターがID1、右モーターがID2。  
 - M5unified を使ってなるべく機種に依存しないように作っていますが、M5Atom S3 以外の対応予定はありません。
 <br/>
 
 
 ### リンク
-[M5Atom S3のドキュメント](https://docs.m5stack.com/en/core/AtomS3)
+[M5Atom S3のドキュメント](https://docs.m5stack.com/en/core/AtomS3)  
 [Atomic RS485 Baseのドキュメント](https://docs.m5stack.com/en/atom/Atomic%20RS485%20Base)  
-他の機種でAtomic RS485 Baseを使う場合は、このドキュメントを参考にplatform.iniに記載したGPIO番号を変える必要があります。  
+他の機種でAtomic RS485 Baseを使う場合は、このドキュメントを参考にGPIO番号を設定する必要があります。  
 <br/>
 [DDT M0601C_111 ダイレクトドライブモーター(スイッチサイエンス)](https://www.switch-science.com/products/7646)  
 
