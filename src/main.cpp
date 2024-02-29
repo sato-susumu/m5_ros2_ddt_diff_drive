@@ -175,14 +175,20 @@ public:
     MainSerial.begin(115200);
     set_microros_serial_transports(MainSerial);
 
-    RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
+    while(1) {
+      auto result = rclc_support_init(&support, 0, NULL, &allocator);
+      if(result == RCL_RET_OK) {
+        break;
+      }
+      delay(2000);
+    }
     RCCHECK(rclc_node_init_default(&node, node_name, "", &support));
 
     RCCHECK(rclc_subscription_init_default(
         &cmd_vel_subscriber,
         &node,
         ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, Twist),
-        "/cmd_vel_ddd"));
+        "cmd_vel"));
 
     RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
     RCCHECK(rclc_executor_add_subscription(
@@ -223,8 +229,6 @@ void setup()
   const char *node_name = "m5_ros2_ddt_diff_drive";
   M5Controller::begin(node_name);
   node.begin(node_name);
-
-  delay(2000);
 }
 
 void loop()
