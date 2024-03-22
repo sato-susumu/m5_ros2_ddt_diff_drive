@@ -184,11 +184,13 @@ public:
     }
     RCCHECK(rclc_node_init_default(&node, node_name, "", &support));
 
-    RCCHECK(rclc_subscription_init_default(
+    static const rmw_qos_profile_t rmw_qos_custom_profile = {RMW_QOS_POLICY_HISTORY_KEEP_LAST, 1, RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT, RMW_QOS_POLICY_DURABILITY_VOLATILE, RMW_QOS_DEADLINE_DEFAULT, RMW_QOS_LIFESPAN_DEFAULT, RMW_QOS_POLICY_LIVELINESS_SYSTEM_DEFAULT, RMW_QOS_LIVELINESS_LEASE_DURATION_DEFAULT, false};
+
+    RCCHECK(rclc_subscription_init(
         &cmd_vel_subscriber,
         &node,
         ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, Twist),
-        "cmd_vel"));
+        "cmd_vel", &rmw_qos_custom_profile));
 
     RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
     RCCHECK(rclc_executor_add_subscription(
